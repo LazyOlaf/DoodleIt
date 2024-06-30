@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<body style="background-color:#9a7b4f;">
+{% load static %}
+
+<link href="{% static 'css/src.css' %}" rel="stylesheet">
+<img src="static/Background/1.png" alt="bg" style="max-width:1000px;max-height:1000px;" class="center">
+<img src="static/Background/2.png" alt="bg" style="max-width:1000px;max-height:1000px;" class="center">
+<form method="post" enctype="multipart/form-data" style="margin-top: 50px; margin-bottom: 30px; "  class="form_field">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" id="btnUpload" class="button-6"  >Upload</button>
+</form>
+
+{% if image_uri is not None %}
+    {% if predicted_label is not None %}
+        <div class="alert alert-primary" role="alert">
+            <b>{{ predicted_label }}</b>
+        </div>
+
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Prediction error. No label predicted.
+        </div>
+    {% endif %}
+
+    <img src="{{ image_uri }}"  alt="Uploaded image"
+         style="width: auto; max-height: 200px; margin-top: 30px;" class="image1">
+
+    <img src="{% static '/images/input.jpg' %}"
+         style="width: auto; max-height: 200px; margin-top: 30px;" class="image2">
+{% endif %}
+</body>
+</html>
